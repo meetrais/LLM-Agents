@@ -9,6 +9,8 @@ from langchain import hub
 from langchain.agents import create_tool_calling_agent, AgentExecutor
 
 def create_and_invoke_langchain_agents(user_message):
+    
+    #Creating retriever by creating FAISS embedding by reading data from web-page.
     loader = WebBaseLoader("https://docs.smith.langchain.com/overview")
     docs = loader.load()
     documents = RecursiveCharacterTextSplitter(
@@ -20,27 +22,32 @@ def create_and_invoke_langchain_agents(user_message):
 
     retriever.get_relevant_documents("how to upload a dataset")[0]
 
-    """Document(page_content='import Clientfrom langsmith.evaluation import evaluateclient = Client()# Define dataset: these are your test casesdataset_name = "Sample Dataset"dataset = client.create_dataset(dataset_name, description="A sample dataset in LangSmith.")client.create_examples(    inputs=[        {"postfix": "to LangSmith"},        {"postfix": "to Evaluations in LangSmith"},    ],    outputs=[        {"output": "Welcome to LangSmith"},        {"output": "Welcome to Evaluations in LangSmith"},    ],    dataset_id=dataset.id,)# Define your evaluatordef exact_match(run, example):    return {"score": run.outputs["output"] == example.outputs["output"]}experiment_results = evaluate(    lambda input: "Welcome " + input[\'postfix\'], # Your AI system goes here    data=dataset_name, # The data to predict and grade over    evaluators=[exact_match], # The evaluators to score the results    experiment_prefix="sample-experiment", # The name of the experiment    metadata={      "version": "1.0.0",      "revision_id":'
-            , metadata={'source': 'https://docs.smith.langchain.com/overview', 'title': 'Getting started with LangSmith | 🦜️🛠️ LangSmith', 'description': 'Introduction', 'language': 'en'})
-    """
     retriever_tool = create_retriever_tool(
         retriever,
         "langsmith_search",
         "Search for information about LangSmith. For any questions about LangSmith, you must use this tool!",
     )
 
+    #Initializing TavilySearchResults object, this will be used for web/internet search.
     search = TavilySearchResults(verbose=False)
     
+    #Two tools, "search" is for internet search and "retriever_tool" for vector/semantic search on FIASS vector data. 
     tools = [search, retriever_tool]
 
+    #Initilizing llm using OepnAI gpt-3.5-turbo model.
     llm = ChatOpenAI(model="gpt-3.5-turbo-0125", temperature=0)
 
+    #Initializing prompt
     prompt = hub.pull("hwchase17/openai-functions-agent")
     prompt.messages
 
+    #Initializing agent
     agent = create_tool_calling_agent(llm, tools, prompt)
+    
+    #Initializing AgentExecutor
     agent_executor = AgentExecutor(agent=agent,tools=tools,verbose=False)
 
+    #Invoking AgentExecutor to get response. AgentExecutor will decide which tool to use.
     response = agent_executor.invoke({"input": f"{user_message}"})
     print("User: "+ response["input"])
     print("Agent: "+ response["output"])

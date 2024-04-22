@@ -9,3 +9,13 @@ export TAVILY_API_KEY="<your-tavily-key>"
 export OPENAI_API_KEY="<your-openai-key>"  
 
 Note - if you are on Windows OS then use syntax -> setx Variable-Name Variable-Vlaue  
+
+## Overview
+There are two Tools for Agent defined in this Programm.  
+1) One using tavily_search
+2) Another using retriewer which is based on FAISS embedding for LangSmith documentation.
+
+Based on user_message, this Langchain-Agent and LLM based progrram identifies which Tool/Agent to invoke to get answer.  
+If user_message is enquiring something which needs interner search then AgentExecutor invokes Tool #1.  
+If user_message is enquiring about LangSmith/Langchain/LLMs which is related to FAISS embedding we created for angSmith  
+documentation then AgentExecutor will invoke Tool #2.  
