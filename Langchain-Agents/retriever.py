@@ -8,7 +8,7 @@ from langchain_openai import ChatOpenAI
 from langchain import hub
 from langchain.agents import create_tool_calling_agent, AgentExecutor
 
-def create_and_invoke_langchain_agents():
+def create_and_invoke_langchain_agents(user_message):
     loader = WebBaseLoader("https://docs.smith.langchain.com/overview")
     docs = loader.load()
     documents = RecursiveCharacterTextSplitter(
@@ -29,7 +29,8 @@ def create_and_invoke_langchain_agents():
         "Search for information about LangSmith. For any questions about LangSmith, you must use this tool!",
     )
 
-    search = TavilySearchResults()
+    search = TavilySearchResults(verbose=False)
+    
     tools = [search, retriever_tool]
 
     llm = ChatOpenAI(model="gpt-3.5-turbo-0125", temperature=0)
@@ -38,9 +39,11 @@ def create_and_invoke_langchain_agents():
     prompt.messages
 
     agent = create_tool_calling_agent(llm, tools, prompt)
-    agent_executor = AgentExecutor(agent=agent,tools=tools,verbose=True)
+    agent_executor = AgentExecutor(agent=agent,tools=tools,verbose=False)
 
-    agent_executor.invoke({"input": "hi!"})
-
-    agent_executor.invoke({"input": "how can langsmith help with testing?"})
+    response = agent_executor.invoke({"input": f"{user_message}"})
+    print("User: "+ response["input"])
+    print("Agent: "+ response["output"])
+    #print("User: " + response.input)
+    #print("Agent: " + response.output)
 
