@@ -10,6 +10,9 @@ export OPENAI_API_KEY="<your-openai-key>"
 
 Note - if you are on Windows OS then use syntax -> setx Variable-Name Variable-Vlaue  
 
+## Dependencies
+Please install dependency libraries specified in Requirements.txt by running this in IDE terminsl -> pip install -r Requirwmwnts.txt
+
 ## Overview
 There are two Tools for Agent defined in this Programm.  
 1) One using tavily_search
