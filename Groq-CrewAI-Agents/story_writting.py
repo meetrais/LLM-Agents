@@ -78,7 +78,7 @@ def writestory():
     role='Story Outliner',
     goal='Develop an outline for a children\'s storybook about Animals, including chapter titles and characters for 2 chapters.',
     backstory="An imaginative creator who lays the foundation of captivating stories for children.",
-    verbose=True,
+    verbose=False,
     llm=llm,
     allow_delegation=False
     )
@@ -87,7 +87,7 @@ def writestory():
     role='Story Writer',
     goal='Write the full content of the story for all 2 chapters, each chapter 100 words, weaving together the narratives and characters outlined.',
     backstory="A talented storyteller who brings to life the world and characters outlined, crafting engaging and imaginative tales for children.",
-    verbose=True,
+    verbose=False,
     llm=llm,
     allow_delegation=False
     )
@@ -96,7 +96,7 @@ def writestory():
     role='Image Generator',
     goal='Generate one image per chapter content provided by the story outliner. Start with Chapter number, chapter content, character details, detailed location information and detailed items in the location where the activity happens. Generate totally 2 images one by one. Final output should contain all the 2 images in json format.',
     backstory="A creative AI specialized in visual storytelling, bringing each chapter to life through imaginative imagery.",
-    verbose=True,
+    verbose=False,
     llm=llm,
     tools=[generateimage],
     allow_delegation=False
@@ -106,7 +106,7 @@ def writestory():
         role='Content Formatter',
         goal='Format the written story content in markdown, including images at the beginning of each chapter.',
         backstory='A meticulous formatter who enhances the readability and presentation of the storybook.',
-        verbose=True,
+        verbose=False,
         llm=llm,
         tools=[file_read_tool],
         allow_delegation=False
@@ -116,7 +116,7 @@ def writestory():
         role='PDF Converter',
         goal='Convert the Markdown file to a PDF document. story.md is the markdown file name.',
         backstory='An efficient converter that transforms Markdown files into professionally formatted PDF documents.',
-        verbose=True,
+        verbose=False,
         llm=llm,
         tools=[convermarkdowntopdf],
         allow_delegation=False
@@ -159,7 +159,7 @@ def writestory():
     crew = Crew(
     agents=[story_outliner, story_writer, image_generator, content_formatter, markdown_to_pdf_creator],
     tasks=[task_outline, task_write, task_image_generate, task_format_content, task_markdown_to_pdf],
-    verbose=True,
+    verbose=False,
     process=Process.sequential
     )
 

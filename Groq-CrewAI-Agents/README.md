@@ -1,4 +1,6 @@
 # Groq & Crew.AI Agents Reference
+https://console.groq.com/docs/quickstart
+https://docs.crewai.com/core-concepts/Agents/
 https://docs.crewai.com/how-to/Creating-a-Crew-and-kick-it-off/#step-0-installation  
 https://mer.vin/2024/03/crewai-groq-create-story-books/  
 

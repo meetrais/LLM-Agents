@@ -19,34 +19,34 @@ def student_asks_question_to_professors():
         role ='Student',
         goal='Ask question to Professors to get clarity on any random University subject.',
         backstory='You are a Student of well known University of USA.',
-        verbose=True,
+        verbose=False,
         llm=llm,
         allow_delegation=False
     )
     
     professor_boilogy = Agent(
         role='Professor of Biology',
-        goal='As a professor of Biology answer question of student only if its related to Biology subject. If question is not related to Biology then just say Sorry, this is not my subject.',
+        goal='As a professor of Biology answer question of student only if its related to Biology subject. If question is not related to Biology then only say Sorry, this is not my subject.',
         backstory='You are a Professor of Biology. You are subject matter expert of Biology. Many students in the University ask you question on Biology subject',
-        verbose=True,
+        verbose=False,
         llm=llm,
         allow_delegation=False
     )
     
     professor_mathematics = Agent(
         role='Professor of Mathematics',
-        goal= 'As a professor of Mathematics answer question of student only if its related to Mathematics subject. If question is not related to Mathematics then just say Sorry, this is not my subject.',
+        goal= 'As a professor of Mathematics answer question of student only if its related to Mathematics subject. If question is not related to Mathematics then only say Sorry, this is not my subject.',
         backstory='You are a Professor of Mathematics. You are subject matter expert of Mathematics. Many students in the University ask you question on Mathematics subject',
-        verbose=True,
+        verbose=False,
         llm=llm,
         allow_delegation=False
     )
     
     professor_chemistry = Agent(
         role='Professor of Chemistry',
-        goal= 'As a professor of Chemistry answer question of student only if its related to Chemistry subject.  If question is not related to Chemistry then just say Sorry, this is not my subject.',
+        goal= 'As a professor of Chemistry answer question of student only if its related to Chemistry subject.  If question is not related to Chemistry then only say Sorry, this is not my subject.',
         backstory='You are a Professor of Chemistry. You are subject matter expert of Chemistry. Many students in the University ask you question on Chemistry subject',
-        verbose=True,
+        verbose=False,
         llm=llm,
         allow_delegation=False
     )
@@ -79,13 +79,21 @@ def student_asks_question_to_professors():
     crew = Crew(
         agents=[student,professor_boilogy,professor_mathematics,professor_chemistry],
         tasks=[task_student,task_professor_biology,task_professor_mathematics,task_professor_chemistry],
-        verbose=True,
+        #verbose=False,
         process=Process.sequential
+        #full_output=True
     )
     
     result= crew.kickoff()
+    #print(result)
+    print("Student: " + task_student.output.exported_output)
+    print("\n")
+    print("Biology Professor: " + task_professor_biology.output.exported_output)
+    print("\n")
+    print("Mathematics Professor: " + task_professor_mathematics.output.exported_output)
+    print("\n")
+    print("Chemistry Professor: " + task_professor_chemistry.output.exported_output)
     
-    print(result)
     
     
     
