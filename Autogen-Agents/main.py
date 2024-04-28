@@ -8,9 +8,9 @@ llm_config = {
 # Define Agents
 
 user_proxy = autogen.UserProxyAgent(
-    name="Student",
+    name="University_Coordinator",
     system_message="""A human user. select most appropriate assistant agent amongst Biology_Professor, Mathematics_Professor, Electronics_Professor
-        and Chemistry_Professor to get answer on question asked by Student.""",
+        and Chemistry_Professor to get answer on question asked by user.""",
     human_input_mode="TERMINATE",
 )
 
