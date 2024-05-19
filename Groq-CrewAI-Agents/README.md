@@ -9,7 +9,7 @@ https://mer.vin/2024/03/crewai-groq-create-story-books/
 export GROQ_API_KEY="your-Groq-API-Key"  
 export GROQ_API_KEY="your-OpenAI-API-Key"   
 
-Note - if you are on Windows OS then use syntax -> setx Variable-Name Variable-Vlaue 
+Note - if you are on Windows OS then use syntax -> setx Key-Name Key-Vlaue 
 
 ## Dependencies
 Please install dependency libraries specified in Requirements.txt by running this command in IDE terminal -> pip install -r Requirements.txt
