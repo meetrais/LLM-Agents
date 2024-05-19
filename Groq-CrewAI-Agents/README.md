@@ -6,8 +6,8 @@ https://mer.vin/2024/03/crewai-groq-create-story-books/
 
 
 ## Commands to run in your terminal. Restart your IDE once after execution.
-export GROQ_API_KEY="<your-Groq-API-Key>"  
-export GROQ_API_KEY="<your-OpenAI-API-Key>"   
+export GROQ_API_KEY="your-Groq-API-Key"  
+export GROQ_API_KEY="your-OpenAI-API-Key"   
 
 Note - if you are on Windows OS then use syntax -> setx Variable-Name Variable-Vlaue 
 
