@@ -37,13 +37,17 @@ def analyze(imagename):
     
     llm = OpenAI(model="gpt-4o")
     agent = OpenAIAgent.from_tools(
-        [move_to_cats_folder_tool, move_to_dogs_folder_tool], llm=llm, verbose=True,
+        tools=[move_to_cats_folder_tool, move_to_dogs_folder_tool, move_to_horse_folder_tool], llm=llm, verbose=True,
         system_prompt="""Call move_to_cats_folder_tool if you find cat, 
                          call move_to_dogs_folder_tool if you find dog,
+                         call move_to_horse_folder_tool if you find horse,
                          otherwise dont call any function.
-                        """
-    )    
-    imagepath = path.relpath("images/data/" + imagename)
+                        """,
+                        
+    ) 
+    imagepath = "images/data/" + imagename
+    prompt="""Your are a vision large language model assistant. Analyze image from this specified imagepath.
+    imagepath=""" + imagepath
 
     response = agent.chat(imagepath)
     print(str(response))
