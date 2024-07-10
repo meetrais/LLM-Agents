@@ -57,6 +57,6 @@ control_plane = ControlPlaneServer(message_queue, pipeline_orchestrator)
 
 # launch it
 launcher = LocalLauncher([agent_service, human_service], control_plane, message_queue)
-result = launcher.launch_single("What is 1 + 2 + 3 + 4 + 5?")
+result = launcher.launch_single("Tell me secret fact.")
 
 print(f"Result: {result}")
