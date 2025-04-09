@@ -1,3 +1,4 @@
+# THIS CODE IS ABSOULUTE BECAUSE GOOGLE GOOGLE CHANGED THEIR GEMINI API
 import google.generativeai as genai
 import google.ai.generativelanguage as glm
 import os
